@@ -9,6 +9,7 @@ public class Student {
     private Date enrollmentDate;
     private int disciplineId;
 
+    public Student(){};
     public Student(int id, String fullName, String email, Date enrollmentDate, int disciplineId) {
         setId(id);
         setFullName(fullName);

@@ -7,6 +7,7 @@ public class Discipline {
     private String teacherPhone;
     private int schoolId;
 
+    public Discipline(){};
     public Discipline(int id, String name, String teacherName, String teacherPhone, int schoolId) {
         setId(id);
         setName(name);
