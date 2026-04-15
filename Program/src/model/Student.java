@@ -11,29 +11,32 @@ public class Student {
 
     public Student() {}
 
-    public Student(int id, String fullName, String email, Date enrollmentDate, int disciplineId) {
-        this.id = id;
+    public void setFullName(String fullName) {
+        if (fullName == null || fullName.trim().split("\\s+").length < 2) {
+            throw new IllegalArgumentException("Full name must contain at least two words (First and Last name).");
+        }
         this.fullName = fullName;
+    }
+
+    public void setEmail(String email) {
+        if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            throw new IllegalArgumentException("Invalid email format.");
+        }
         this.email = email;
-        this.enrollmentDate = enrollmentDate;
+    }
+
+    public void setDisciplineId(int disciplineId) {
+        if (disciplineId <= 0) {
+            throw new IllegalArgumentException("Discipline ID must be a positive number.");
+        }
         this.disciplineId = disciplineId;
     }
-
-    public boolean isValid() {
-
-        boolean isNameValid = fullName != null && fullName.trim().split("\\s+").length >= 2;
-        boolean isEmailValid = email != null && email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
-
-        return isNameValid && isEmailValid && disciplineId > 0;
-    }
+    
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getFullName() { return fullName; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
     public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
     public Date getEnrollmentDate() { return enrollmentDate; }
     public void setEnrollmentDate(Date enrollmentDate) { this.enrollmentDate = enrollmentDate; }
     public int getDisciplineId() { return disciplineId; }
-    public void setDisciplineId(int disciplineId) { this.disciplineId = disciplineId; }
 }
