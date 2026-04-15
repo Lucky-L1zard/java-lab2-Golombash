@@ -7,6 +7,14 @@ public class Discipline {
     private String teacherPhone;
     private int schoolId;
 
+    public Discipline(int id, String name, String teacherName, String teacherPhone, int schoolId) {
+        setId(id);
+        setName(name);
+        setTeacherName(teacherName);
+        setTeacherPhone(teacherPhone);
+        setSchoolId(schoolId);
+    }
+
     public void setName(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Discipline name cannot be empty.");
@@ -16,7 +24,7 @@ public class Discipline {
 
     public void setTeacherPhone(String teacherPhone) {
         if (teacherPhone != null && !teacherPhone.matches("^[+]?[0-9]{10,13}$")) {
-            throw new IllegalArgumentException("Phone number must contain \"+\" and 10-13 digits.");
+            throw new IllegalArgumentException("Phone number must contain 10-13 digits.");
         }
         this.teacherPhone = teacherPhone;
     }

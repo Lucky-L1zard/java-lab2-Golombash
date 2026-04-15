@@ -9,7 +9,13 @@ public class Student {
     private Date enrollmentDate;
     private int disciplineId;
 
-    public Student() {}
+    public Student(int id, String fullName, String email, Date enrollmentDate, int disciplineId) {
+        setId(id);
+        setFullName(fullName);
+        setEmail(email);
+        setEnrollmentDate(enrollmentDate);
+        setDisciplineId(disciplineId);
+    }
 
     public void setFullName(String fullName) {
         if (fullName == null || fullName.trim().split("\\s+").length < 2) {
