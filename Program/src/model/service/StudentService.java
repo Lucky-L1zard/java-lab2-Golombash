@@ -10,4 +10,5 @@ public interface StudentService {
     List<Student> filterStudents(Predicate<Student> condition);
     void removeStudent(int id);
     List<Student> getStudentsByDiscipline(int disciplineId);
+    void updateStudent(Student student);
 }
