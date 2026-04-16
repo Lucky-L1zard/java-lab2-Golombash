@@ -80,24 +80,38 @@ public class StudentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
 
         String idStr = request.getParameter("id");
         String fullName = request.getParameter("fullName");
         String email = request.getParameter("email");
-        int disciplineId = Integer.parseInt(request.getParameter("disciplineId"));
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        String discIdStr = request.getParameter("disciplineId");
 
-        Student student = new Student();
-        student.setFullName(fullName);
-        student.setEmail(email);
-        student.setDisciplineId(disciplineId);
+        if (fullName != null && discIdStr != null) {
+            int disciplineId = Integer.parseInt(discIdStr);
 
-        if (idStr == null || idStr.isEmpty()) {
-            studentService.registerStudent(student);
-        } else {
-            student.setId(Integer.parseInt(idStr));
-            studentService.updateStudent(student);
+            Student student = new Student();
+            student.setFullName(fullName);
+            student.setEmail(email);
+            student.setDisciplineId(disciplineId);
+
+            if (!email.matches(emailRegex)) {
+                request.setAttribute("errorMessage", "Адреса має містити '@' та крапку в домені (наприклад: \".com\")");
+                request.setAttribute("student", student);
+                showNewForm(request, response);
+                return;
+            }
+
+            if (idStr == null || idStr.isEmpty()) {
+                // Реєстрація нового студента
+                studentService.registerStudent(student);
+            } else {
+                // Оновлення існуючого
+                student.setId(Integer.parseInt(idStr));
+                studentService.updateStudent(student);
+            }
         }
         response.sendRedirect("students");
     }
